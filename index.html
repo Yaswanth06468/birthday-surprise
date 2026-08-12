@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Create Your Birthday Surprise ❤️</title>
-  <meta name="description" content="Create, customize, and share an unforgettable interactive birthday surprise experience for your girlfriend." />
-  
+  <meta name="description"
+    content="Create, customize, and share an unforgettable interactive birthday surprise experience for your girlfriend." />
+
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/polaroid.css" />
   <link rel="stylesheet" href="css/wizard.css" />
 </head>
+
 <body>
 
   <!-- Floating Navigation Controls -->
@@ -43,7 +46,8 @@
         <span class="section-subtitle">Manage Your Surprises</span>
         <h1>Welcome Back ❤️</h1>
         <p class="section-desc">Select an existing surprise to preview or edit, or create a brand new one!</p>
-        <button id="btn-create-profile" class="theme-btn" style="margin-top:1.5rem;">+ Create New Birthday Surprise 🎁</button>
+        <button id="btn-create-profile" class="theme-btn" style="margin-top:1.5rem;">+ Create New Birthday Surprise
+          🎁</button>
       </div>
 
       <div id="dashboard-profiles-grid" class="profiles-grid"></div>
@@ -114,14 +118,16 @@
             </div>
             <div class="form-group form-grid-full">
               <label class="form-label">Short Description / Bio</label>
-              <textarea id="wiz-her-desc" class="form-control" placeholder="Write something sweet about her..."></textarea>
+              <textarea id="wiz-her-desc" class="form-control"
+                placeholder="Write something sweet about her..."></textarea>
             </div>
             <div class="form-group form-grid-full">
               <label class="form-label">Profile Photo Upload</label>
               <div class="file-upload-box">
                 <input type="file" id="wiz-her-photo-input" class="file-input-hidden" accept="image/*" />
                 <p>📷 Click to upload profile picture</p>
-                <img id="wiz-her-photo-preview" class="file-preview-thumb" src="assets/images/photo1.svg" alt="Preview" />
+                <img id="wiz-her-photo-preview" class="file-preview-thumb" src="assets/images/photo1.svg"
+                  alt="Preview" />
               </div>
             </div>
           </div>
@@ -130,7 +136,8 @@
         <!-- STEP 2 — YOUR STORY -->
         <div class="glass-card form-step-card" data-step="2">
           <h3 class="section-title" style="font-size:1.8rem;">Step 2 — Your Relationship Story ❤️</h3>
-          <p class="section-desc" style="margin-bottom:1.5rem;">All fields here are optional. Any empty field will auto-hide cleanly!</p>
+          <p class="section-desc" style="margin-bottom:1.5rem;">All fields here are optional. Any empty field will
+            auto-hide cleanly!</p>
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label">Your Name</label>
@@ -150,11 +157,13 @@
             </div>
             <div class="form-group form-grid-full">
               <label class="form-label">How You Met</label>
-              <textarea id="wiz-how-met" class="form-control" placeholder="Describe the day you first met..."></textarea>
+              <textarea id="wiz-how-met" class="form-control"
+                placeholder="Describe the day you first met..."></textarea>
             </div>
             <div class="form-group form-grid-full">
               <label class="form-label">First Conversation</label>
-              <textarea id="wiz-first-conv" class="form-control" placeholder="What did you talk about first?"></textarea>
+              <textarea id="wiz-first-conv" class="form-control"
+                placeholder="What did you talk about first?"></textarea>
             </div>
             <div class="form-group form-grid-full">
               <label class="form-label">Our First Date</label>
@@ -162,7 +171,8 @@
             </div>
             <div class="form-group form-grid-full">
               <label class="form-label">Favorite Memory Together</label>
-              <textarea id="wiz-fav-memory" class="form-control" placeholder="Your absolute favorite memory together..."></textarea>
+              <textarea id="wiz-fav-memory" class="form-control"
+                placeholder="Your absolute favorite memory together..."></textarea>
             </div>
           </div>
         </div>
@@ -170,12 +180,15 @@
         <!-- STEP 3 — MEMORIES & TIMELINE -->
         <div class="glass-card form-step-card" data-step="3">
           <h3 class="section-title" style="font-size:1.8rem;">Step 3 — Polaroid Gallery & Timeline 📸⏳</h3>
-          
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Polaroid Photos Gallery</h4>
-          <div id="wiz-memories-container"></div>
-          <button id="wiz-add-memory-btn" class="theme-btn btn-outline" style="margin-bottom:2.5rem;">+ Add Memory Photo 📸</button>
 
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Relationship Timeline Events</h4>
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Polaroid Photos
+            Gallery</h4>
+          <div id="wiz-memories-container"></div>
+          <button id="wiz-add-memory-btn" class="theme-btn btn-outline" style="margin-bottom:2.5rem;">+ Add Memory Photo
+            📸</button>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Relationship
+            Timeline Events</h4>
           <div id="wiz-timeline-container"></div>
           <button id="wiz-add-timeline-btn" class="theme-btn btn-outline">+ Add Timeline Moment ⏳</button>
         </div>
@@ -183,25 +196,31 @@
         <!-- STEP 4 — MESSAGES & LETTERS -->
         <div class="glass-card form-step-card" data-step="4">
           <h3 class="section-title" style="font-size:1.8rem;">Step 4 — Love Letter & Envelopes 💌</h3>
-          
+
           <div class="form-group">
             <label class="form-label">Love Letter Title</label>
             <input type="text" id="wiz-letter-title" class="form-control" placeholder="Write Your Birthday Message" />
           </div>
           <div class="form-group">
             <label class="form-label">Write Something From Your Heart ❤️</label>
-            <textarea id="wiz-letter-content" class="form-control" style="min-height:160px;" placeholder="Write your letter here..."></textarea>
+            <textarea id="wiz-letter-content" class="form-control" style="min-height:160px;"
+              placeholder="Write your letter here..."></textarea>
           </div>
-          <div style="margin-bottom:2rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:8px; border:1px solid var(--glass-border);">
+          <div
+            style="margin-bottom:2rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:8px; border:1px solid var(--glass-border);">
             <div style="font-size:0.85rem; color:var(--accent-gold); margin-bottom:0.4rem;">Live Letter Preview:</div>
-            <div id="wiz-letter-preview" style="font-size:0.95rem; white-space:pre-line; color:rgba(255,255,255,0.9);"></div>
+            <div id="wiz-letter-preview" style="font-size:0.95rem; white-space:pre-line; color:rgba(255,255,255,0.9);">
+            </div>
           </div>
 
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">"Open When..." Envelopes Manager</h4>
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">"Open When..."
+            Envelopes Manager</h4>
           <div id="wiz-envelopes-container"></div>
-          <button id="wiz-add-envelope-btn" class="theme-btn btn-outline" style="margin-bottom:2rem;">+ Add Envelope ✉️</button>
+          <button id="wiz-add-envelope-btn" class="theme-btn btn-outline" style="margin-bottom:2rem;">+ Add Envelope
+            ✉️</button>
 
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">"Reasons I Love You" Manager 💕</h4>
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">"Reasons I Love
+            You" Manager 💕</h4>
           <div id="wiz-reasons-container"></div>
           <button id="wiz-add-reason-btn" class="theme-btn btn-outline">+ Add Reason 💕</button>
         </div>
@@ -209,15 +228,19 @@
         <!-- STEP 5 — QUIZ & FINAL GIFT -->
         <div class="glass-card form-step-card" data-step="5">
           <h3 class="section-title" style="font-size:1.8rem;">Step 5 — Relationship Quiz & Final Gift 🎁</h3>
-          
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Custom Quiz Builder 👀</h4>
-          <div id="wiz-quiz-container"></div>
-          <button id="wiz-add-question-btn" class="theme-btn btn-outline" style="margin-bottom:2.5rem;">+ Add Quiz Question ❓</button>
 
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">3D Final Gift Box Settings 🎁</h4>
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Custom Quiz
+            Builder 👀</h4>
+          <div id="wiz-quiz-container"></div>
+          <button id="wiz-add-question-btn" class="theme-btn btn-outline" style="margin-bottom:2.5rem;">+ Add Quiz
+            Question ❓</button>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">3D Final Gift
+            Box Settings 🎁</h4>
           <div class="form-group">
             <label class="form-label">Teaser Text</label>
-            <input type="text" id="wiz-gift-teaser" class="form-control" placeholder="Okay... this is the final surprise." />
+            <input type="text" id="wiz-gift-teaser" class="form-control"
+              placeholder="Okay... this is the final surprise." />
           </div>
           <div class="form-group">
             <label class="form-label">Final Reveal Title</label>
@@ -225,10 +248,12 @@
           </div>
           <div class="form-group">
             <label class="form-label">Final Reveal Message</label>
-            <textarea id="wiz-gift-msg" class="form-control" placeholder="Out of all the people in this world, I'm just really lucky that I got to meet you."></textarea>
+            <textarea id="wiz-gift-msg" class="form-control"
+              placeholder="Out of all the people in this world, I'm just really lucky that I got to meet you."></textarea>
           </div>
 
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Secret Easter Egg & Security 🔐</h4>
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Secret Easter
+            Egg & Security 🔐</h4>
           <div class="form-group">
             <label class="form-label">Secret Easter Egg Message (Triggered on 5 heart clicks)</label>
             <textarea id="wiz-secret-msg" class="form-control" placeholder="You found my secret message! ❤️"></textarea>
@@ -242,7 +267,8 @@
             <input type="text" id="wiz-pass-secret" class="form-control" value="love" />
           </div>
 
-          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Background Music 🎵</h4>
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Background
+            Music 🎵</h4>
           <div class="form-group">
             <label class="form-label">Upload Custom Song (MP3 / WAV)</label>
             <input type="file" id="wiz-audio-input" class="form-control" accept="audio/*" />
@@ -253,7 +279,7 @@
         <!-- STEP 6 — THEME & SHARE -->
         <div class="glass-card form-step-card" data-step="6">
           <h3 class="section-title" style="font-size:1.8rem;">Step 6 — Theme Customization & Share 🎨🔗</h3>
-          
+
           <label class="form-label" style="margin-bottom:1rem;">Select Predefined Theme Preset</label>
           <div class="theme-presets-grid">
             <button class="theme-preset-btn active" data-preset="romantic">🌹 Romantic</button>
@@ -264,14 +290,18 @@
           </div>
 
           <div style="text-align:center; margin:3rem 0;">
-            <h2 style="font-family:var(--font-heading); font-size:2.2rem; color:var(--accent-gold); margin-bottom:1rem;">Your Surprise Is Ready! 🎉</h2>
+            <h2
+              style="font-family:var(--font-heading); font-size:2.2rem; color:var(--accent-gold); margin-bottom:1rem;">
+              Your Surprise Is Ready! 🎉</h2>
             <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
               <button id="wiz-btn-preview" class="theme-btn btn-outline">Live Preview 👀</button>
               <button id="wiz-btn-save" class="theme-btn">Save & Open My Surprise ❤️</button>
               <button id="wiz-btn-share" class="theme-btn btn-outline">Share Link 🔗</button>
             </div>
             <div style="margin-top:2rem;">
-              <button id="wiz-btn-reset" style="background:none; border:none; color:#ff4757; text-decoration:underline; cursor:pointer;">Reset Everything to Default 🔄</button>
+              <button id="wiz-btn-reset"
+                style="background:none; border:none; color:#ff4757; text-decoration:underline; cursor:pointer;">Reset
+                Everything to Default 🔄</button>
             </div>
           </div>
         </div>
@@ -299,7 +329,8 @@
         <div class="password-icon">🔐</div>
         <h2 id="password-title" class="password-title">Before you enter... prove it's you 😉</h2>
         <div class="password-input-group">
-          <input type="password" id="password-input" class="password-input" placeholder="Enter the secret word ❤️" autocomplete="off" />
+          <input type="password" id="password-input" class="password-input" placeholder="Enter the secret word ❤️"
+            autocomplete="off" />
         </div>
         <button id="password-submit-btn" class="theme-btn">Unlock My Heart 🔑</button>
         <div id="password-error-msg" class="password-error-msg"></div>
@@ -314,7 +345,7 @@
         <div class="container">
           <span class="hero-subtitle">To the most precious person in my world...</span>
           <h1 class="hero-title">Happy Birthday, <span class="her-name">Sophia</span> ❤️</h1>
-          
+
           <p id="her-description-text" class="section-desc" style="margin-bottom: 2rem; display:none;"></p>
 
           <div class="countdown-grid">
@@ -347,7 +378,8 @@
             <span class="section-subtitle">Our Journey Together</span>
             <h2 class="section-title">How Our Story Began ❤️</h2>
           </div>
-          <div id="relationship-story-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;"></div>
+          <div id="relationship-story-grid"
+            style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;"></div>
         </div>
       </section>
 
@@ -490,6 +522,10 @@
     </div>
   </div>
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
   <!-- JavaScript Scripts -->
   <script src="js/store.js"></script>
   <script src="js/theme.js"></script>
@@ -520,4 +556,5 @@
     });
   </script>
 </body>
+
 </html>
