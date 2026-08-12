@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Your Birthday Surprise ❤️</title>
+  <meta name="description" content="Create, customize, and share an unforgettable interactive birthday surprise experience for your girlfriend." />
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/polaroid.css" />
+  <link rel="stylesheet" href="css/wizard.css" />
+</head>
+<body>
+
+  <!-- Floating Navigation Controls -->
+  <div class="floating-edit-bar">
+    <button id="btn-open-wizard" class="floating-edit-btn">Customize Surprise ✏️</button>
+    <button id="btn-open-dashboard" class="floating-edit-btn">My Surprises 📂</button>
+  </div>
+
+  <!-- Canvases for Celebratory Effects -->
+  <canvas id="fireworks-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Interactive Hidden Hearts & Easter Egg Layer -->
+  <div id="hidden-hearts-layer"></div>
+
+  <!-- Background Audio Element -->
+  <audio id="bg-audio" loop></audio>
+
+  <!-- Floating Music Toggle Button -->
+  <div class="music-control-floating">
+    <button id="music-toggle-btn" class="music-btn" title="Toggle Music">🎵</button>
+  </div>
+
+  <!-- ===================================================================
+   * VIEW 1: RETURNING USER DASHBOARD ("WELCOME BACK ❤️")
+   * =================================================================== -->
+  <div id="dashboard-app" class="view-hidden">
+    <div class="dashboard-container">
+      <div class="dashboard-header">
+        <span class="section-subtitle">Manage Your Surprises</span>
+        <h1>Welcome Back ❤️</h1>
+        <p class="section-desc">Select an existing surprise to preview or edit, or create a brand new one!</p>
+        <button id="btn-create-profile" class="theme-btn" style="margin-top:1.5rem;">+ Create New Birthday Surprise 🎁</button>
+      </div>
+
+      <div id="dashboard-profiles-grid" class="profiles-grid"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+   * VIEW 2: ROMANTIC SETUP WIZARD ("CREATE YOUR SURPRISE ❤️")
+   * =================================================================== -->
+  <div id="wizard-app" class="view-hidden">
+    <div class="wizard-container">
+      <div class="wizard-header">
+        <span class="wizard-subtitle">Make this website yours</span>
+        <h1 class="wizard-title">Create Your Birthday Surprise ❤️</h1>
+        <p class="section-desc">Add the special details, memories, and letters that make your story unique.</p>
+      </div>
+
+      <!-- Stepper Progress Bar -->
+      <div class="stepper-bar">
+        <div class="step-item active" data-step="1">
+          <div class="step-num">1</div>
+          <span class="step-label">Her Details 💕</span>
+        </div>
+        <div class="step-item" data-step="2">
+          <div class="step-num">2</div>
+          <span class="step-label">Your Story ❤️</span>
+        </div>
+        <div class="step-item" data-step="3">
+          <div class="step-num">3</div>
+          <span class="step-label">Memories 📸</span>
+        </div>
+        <div class="step-item" data-step="4">
+          <div class="step-num">4</div>
+          <span class="step-label">Messages 💌</span>
+        </div>
+        <div class="step-item" data-step="5">
+          <div class="step-num">5</div>
+          <span class="step-label">Quiz & Gift 🎁</span>
+        </div>
+        <div class="step-item" data-step="6">
+          <div class="step-num">6</div>
+          <span class="step-label">Theme & Share 🎨</span>
+        </div>
+      </div>
+
+      <!-- FORM STEPS -->
+      <div id="wizard-form-container">
+
+        <!-- STEP 1 — HER DETAILS -->
+        <div class="glass-card form-step-card active" data-step="1">
+          <h3 class="section-title" style="font-size:1.8rem;">Step 1 — Her Details 💕</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Girlfriend's Name *</label>
+              <input type="text" id="wiz-her-name" class="form-control" placeholder="e.g. Sophia" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nickname (Optional)</label>
+              <input type="text" id="wiz-her-nickname" class="form-control" placeholder="e.g. Soph" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Birthday Date & Time *</label>
+              <input type="datetime-local" id="wiz-her-birthday" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Favorite Color</label>
+              <input type="color" id="wiz-her-color" class="form-control" value="#ff6584" style="height:48px;" />
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label">Short Description / Bio</label>
+              <textarea id="wiz-her-desc" class="form-control" placeholder="Write something sweet about her..."></textarea>
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label">Profile Photo Upload</label>
+              <div class="file-upload-box">
+                <input type="file" id="wiz-her-photo-input" class="file-input-hidden" accept="image/*" />
+                <p>📷 Click to upload profile picture</p>
+                <img id="wiz-her-photo-preview" class="file-preview-thumb" src="assets/images/photo1.svg" alt="Preview" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 — YOUR STORY -->
+        <div class="glass-card form-step-card" data-step="2">
+          <h3 class="section-title" style="font-size:1.8rem;">Step 2 — Your Relationship Story ❤️</h3>
+          <p class="section-desc" style="margin-bottom:1.5rem;">All fields here are optional. Any empty field will auto-hide cleanly!</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" id="wiz-your-name" class="form-control" placeholder="e.g. Alex" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date You Met</label>
+              <input type="text" id="wiz-date-met" class="form-control" placeholder="e.g. October 12, 2023" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Place You Met</label>
+              <input type="text" id="wiz-place-met" class="form-control" placeholder="e.g. Cozy Corner Cafe" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Anniversary Date</label>
+              <input type="text" id="wiz-anniversary" class="form-control" placeholder="e.g. November 01" />
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label">How You Met</label>
+              <textarea id="wiz-how-met" class="form-control" placeholder="Describe the day you first met..."></textarea>
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label">First Conversation</label>
+              <textarea id="wiz-first-conv" class="form-control" placeholder="What did you talk about first?"></textarea>
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label">Our First Date</label>
+              <textarea id="wiz-first-date" class="form-control" placeholder="Describe your first date..."></textarea>
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label">Favorite Memory Together</label>
+              <textarea id="wiz-fav-memory" class="form-control" placeholder="Your absolute favorite memory together..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 — MEMORIES & TIMELINE -->
+        <div class="glass-card form-step-card" data-step="3">
+          <h3 class="section-title" style="font-size:1.8rem;">Step 3 — Polaroid Gallery & Timeline 📸⏳</h3>
+          
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Polaroid Photos Gallery</h4>
+          <div id="wiz-memories-container"></div>
+          <button id="wiz-add-memory-btn" class="theme-btn btn-outline" style="margin-bottom:2.5rem;">+ Add Memory Photo 📸</button>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Relationship Timeline Events</h4>
+          <div id="wiz-timeline-container"></div>
+          <button id="wiz-add-timeline-btn" class="theme-btn btn-outline">+ Add Timeline Moment ⏳</button>
+        </div>
+
+        <!-- STEP 4 — MESSAGES & LETTERS -->
+        <div class="glass-card form-step-card" data-step="4">
+          <h3 class="section-title" style="font-size:1.8rem;">Step 4 — Love Letter & Envelopes 💌</h3>
+          
+          <div class="form-group">
+            <label class="form-label">Love Letter Title</label>
+            <input type="text" id="wiz-letter-title" class="form-control" placeholder="Write Your Birthday Message" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Write Something From Your Heart ❤️</label>
+            <textarea id="wiz-letter-content" class="form-control" style="min-height:160px;" placeholder="Write your letter here..."></textarea>
+          </div>
+          <div style="margin-bottom:2rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:8px; border:1px solid var(--glass-border);">
+            <div style="font-size:0.85rem; color:var(--accent-gold); margin-bottom:0.4rem;">Live Letter Preview:</div>
+            <div id="wiz-letter-preview" style="font-size:0.95rem; white-space:pre-line; color:rgba(255,255,255,0.9);"></div>
+          </div>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">"Open When..." Envelopes Manager</h4>
+          <div id="wiz-envelopes-container"></div>
+          <button id="wiz-add-envelope-btn" class="theme-btn btn-outline" style="margin-bottom:2rem;">+ Add Envelope ✉️</button>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">"Reasons I Love You" Manager 💕</h4>
+          <div id="wiz-reasons-container"></div>
+          <button id="wiz-add-reason-btn" class="theme-btn btn-outline">+ Add Reason 💕</button>
+        </div>
+
+        <!-- STEP 5 — QUIZ & FINAL GIFT -->
+        <div class="glass-card form-step-card" data-step="5">
+          <h3 class="section-title" style="font-size:1.8rem;">Step 5 — Relationship Quiz & Final Gift 🎁</h3>
+          
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Custom Quiz Builder 👀</h4>
+          <div id="wiz-quiz-container"></div>
+          <button id="wiz-add-question-btn" class="theme-btn btn-outline" style="margin-bottom:2.5rem;">+ Add Quiz Question ❓</button>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">3D Final Gift Box Settings 🎁</h4>
+          <div class="form-group">
+            <label class="form-label">Teaser Text</label>
+            <input type="text" id="wiz-gift-teaser" class="form-control" placeholder="Okay... this is the final surprise." />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Final Reveal Title</label>
+            <input type="text" id="wiz-gift-title" class="form-control" placeholder="Happy Birthday, Sophia ❤️" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Final Reveal Message</label>
+            <textarea id="wiz-gift-msg" class="form-control" placeholder="Out of all the people in this world, I'm just really lucky that I got to meet you."></textarea>
+          </div>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Secret Easter Egg & Security 🔐</h4>
+          <div class="form-group">
+            <label class="form-label">Secret Easter Egg Message (Triggered on 5 heart clicks)</label>
+            <textarea id="wiz-secret-msg" class="form-control" placeholder="You found my secret message! ❤️"></textarea>
+          </div>
+          <div class="form-group" style="display:flex; align-items:center; gap:0.8rem;">
+            <input type="checkbox" id="wiz-pass-enabled" checked style="width:20px; height:20px;" />
+            <label for="wiz-pass-enabled" class="form-label" style="margin:0;">Enable Password Gate Screen</label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Secret Word Password</label>
+            <input type="text" id="wiz-pass-secret" class="form-control" value="love" />
+          </div>
+
+          <h4 style="font-family:var(--font-heading); color:var(--accent-pink); margin:1.5rem 0 1rem 0;">Background Music 🎵</h4>
+          <div class="form-group">
+            <label class="form-label">Upload Custom Song (MP3 / WAV)</label>
+            <input type="file" id="wiz-audio-input" class="form-control" accept="audio/*" />
+            <div id="wiz-audio-filename" style="font-size:0.85rem; color:var(--accent-gold); margin-top:0.4rem;"></div>
+          </div>
+        </div>
+
+        <!-- STEP 6 — THEME & SHARE -->
+        <div class="glass-card form-step-card" data-step="6">
+          <h3 class="section-title" style="font-size:1.8rem;">Step 6 — Theme Customization & Share 🎨🔗</h3>
+          
+          <label class="form-label" style="margin-bottom:1rem;">Select Predefined Theme Preset</label>
+          <div class="theme-presets-grid">
+            <button class="theme-preset-btn active" data-preset="romantic">🌹 Romantic</button>
+            <button class="theme-preset-btn" data-preset="midnight">🌌 Midnight</button>
+            <button class="theme-preset-btn" data-preset="soft-pink">🌸 Soft Pink</button>
+            <button class="theme-preset-btn" data-preset="elegant">✨ Elegant</button>
+            <button class="theme-preset-btn" data-preset="dreamy">💜 Dreamy</button>
+          </div>
+
+          <div style="text-align:center; margin:3rem 0;">
+            <h2 style="font-family:var(--font-heading); font-size:2.2rem; color:var(--accent-gold); margin-bottom:1rem;">Your Surprise Is Ready! 🎉</h2>
+            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+              <button id="wiz-btn-preview" class="theme-btn btn-outline">Live Preview 👀</button>
+              <button id="wiz-btn-save" class="theme-btn">Save & Open My Surprise ❤️</button>
+              <button id="wiz-btn-share" class="theme-btn btn-outline">Share Link 🔗</button>
+            </div>
+            <div style="margin-top:2rem;">
+              <button id="wiz-btn-reset" style="background:none; border:none; color:#ff4757; text-decoration:underline; cursor:pointer;">Reset Everything to Default 🔄</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- WIZARD NAVIGATION BAR -->
+      <div class="wizard-nav-bar">
+        <button id="wiz-btn-prev" class="theme-btn btn-outline" style="display:none;">← Previous Step</button>
+        <div></div>
+        <button id="wiz-btn-next" class="theme-btn">Next Step →</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+   * VIEW 3: FINAL BIRTHDAY SURPRISE WEBSITE
+   * =================================================================== -->
+  <div id="surprise-app">
+
+    <!-- PASSWORD GATE SCREEN 🔐 -->
+    <div id="password-gate">
+      <div class="glass-card password-card">
+        <div class="password-icon">🔐</div>
+        <h2 id="password-title" class="password-title">Before you enter... prove it's you 😉</h2>
+        <div class="password-input-group">
+          <input type="password" id="password-input" class="password-input" placeholder="Enter the secret word ❤️" autocomplete="off" />
+        </div>
+        <button id="password-submit-btn" class="theme-btn">Unlock My Heart 🔑</button>
+        <div id="password-error-msg" class="password-error-msg"></div>
+      </div>
+    </div>
+
+    <!-- MAIN SURPRISE CONTENT -->
+    <main id="main-content">
+
+      <!-- 1. HERO & COUNTDOWN -->
+      <section id="hero-countdown" class="hero-section">
+        <div class="container">
+          <span class="hero-subtitle">To the most precious person in my world...</span>
+          <h1 class="hero-title">Happy Birthday, <span class="her-name">Sophia</span> ❤️</h1>
+          
+          <p id="her-description-text" class="section-desc" style="margin-bottom: 2rem; display:none;"></p>
+
+          <div class="countdown-grid">
+            <div class="countdown-box">
+              <div id="cd-days" class="countdown-num">00</div>
+              <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-box">
+              <div id="cd-hours" class="countdown-num">00</div>
+              <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-box">
+              <div id="cd-mins" class="countdown-num">00</div>
+              <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-box">
+              <div id="cd-secs" class="countdown-num">00</div>
+              <div class="countdown-label">Seconds</div>
+            </div>
+          </div>
+
+          <div id="cd-birthday-banner" class="cd-birthday-banner"></div>
+        </div>
+      </section>
+
+      <!-- RELATIONSHIP STORY (AUTO-HIDE IF EMPTY) -->
+      <section id="relationship-story-section" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle">Our Journey Together</span>
+            <h2 class="section-title">How Our Story Began ❤️</h2>
+          </div>
+          <div id="relationship-story-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;"></div>
+        </div>
+      </section>
+
+      <!-- TIMELINE (AUTO-HIDE IF EMPTY) -->
+      <section id="timeline-section" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle">Key Milestones</span>
+            <h2 class="section-title">Our Relationship Timeline ⏳</h2>
+          </div>
+          <div id="timeline-grid" style="max-width:700px; margin:0 auto;"></div>
+        </div>
+      </section>
+
+      <!-- "OPEN WHEN..." LETTERS 💌 -->
+      <section id="open-when-section" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle">For every mood & moment</span>
+            <h2 class="section-title">Open When... Letters 💌</h2>
+            <p class="section-desc">Open these whenever you need me ❤️</p>
+          </div>
+          <div id="open-when-grid" class="open-when-grid"></div>
+        </div>
+      </section>
+
+      <!-- POLAROID GALLERY 📸 -->
+      <section id="memories-section" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle">Snapshot of our story</span>
+            <h2 class="section-title">Our Favorite Memories 📸</h2>
+            <p class="section-desc">Click any photo to zoom into our sweet moments together ❤️</p>
+          </div>
+          <div id="polaroid-grid" class="polaroid-grid"></div>
+        </div>
+      </section>
+
+      <!-- LOVE METER ❤️ -->
+      <section id="love-meter-section" class="section">
+        <div class="container">
+          <div class="glass-card love-meter-wrapper">
+            <span class="section-subtitle">How deep is my devotion?</span>
+            <h2 class="section-title">Love Meter ❤️</h2>
+            <p class="section-desc">Click below to calculate exactly how much I love you!</p>
+
+            <div class="love-meter-bar-outer">
+              <div id="love-meter-fill" class="love-meter-fill"></div>
+              <div id="love-meter-val" class="love-meter-val">0%</div>
+            </div>
+
+            <button id="love-meter-btn" class="theme-btn">Find Out ❤️</button>
+            <div id="love-meter-result" class="love-meter-result"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REASONS I LOVE YOU 💕 -->
+      <section id="reasons-section" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle">From my heart to yours</span>
+            <h2 class="section-title">Reasons I Love You 💕</h2>
+          </div>
+          <div class="reason-card-container">
+            <div id="reason-card" class="glass-card reason-card">
+              <div id="reason-count" class="reason-count">Reason #1</div>
+              <div id="reason-text" class="reason-text">Because your smile makes my entire day brighter.</div>
+            </div>
+            <button id="reason-btn" class="theme-btn">Give me another reason ❤️</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MINI RELATIONSHIP QUIZ 😂 -->
+      <section id="quiz-section" class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle">A cute little test</span>
+            <h2 class="section-title">How Well Do You Know Us? 👀</h2>
+          </div>
+          <div id="quiz-container" class="glass-card quiz-card"></div>
+        </div>
+      </section>
+
+      <!-- FINAL GIFT BOX 🎁 -->
+      <section id="gift-section" class="section gift-box-section">
+        <div class="container">
+          <span id="gift-teaser" class="gift-teaser">Okay... this is the final surprise.</span>
+          <div class="gift-box-container">
+            <div id="gift-box-3d" class="gift-box-3d">
+              <div class="gift-box-lid">
+                <div class="gift-bow"></div>
+              </div>
+              <div class="gift-box-body"></div>
+            </div>
+          </div>
+          <button id="gift-open-btn" class="theme-btn">Open Gift 🎁</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODALS -->
+  <div id="letter-modal" class="modal-container">
+    <div class="modal-backdrop"></div>
+    <div class="glass-card modal-content">
+      <button class="modal-close-btn">&times;</button>
+      <div class="letter-modal-header">
+        <div id="letter-modal-icon" class="letter-modal-icon">💌</div>
+        <h3 id="letter-modal-title" class="letter-modal-title">Open When Letter</h3>
+      </div>
+      <div id="letter-modal-body" class="letter-modal-body"></div>
+    </div>
+  </div>
+
+  <div id="polaroid-modal" class="modal-container">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close-btn">&times;</button>
+      <div class="polaroid-modal-card">
+        <img id="polaroid-modal-img" class="polaroid-modal-img" src="" alt="Memory" />
+        <h3 id="polaroid-modal-title" class="polaroid-modal-title">Memory Title</h3>
+        <p id="polaroid-modal-caption" class="polaroid-modal-caption">Caption</p>
+        <span id="polaroid-modal-date" class="polaroid-modal-date">Date</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="gift-modal" class="modal-container">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close-btn">&times;</button>
+      <div class="glass-card gift-modal-card">
+        <div class="gift-modal-icon">🎂❤️</div>
+        <h2 id="gift-modal-title" class="gift-modal-title">Happy Birthday, Sophia ❤️</h2>
+        <p id="gift-modal-msg" class="gift-modal-msg"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/fireworks.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/wizard.js"></script>
+
+  <!-- Application Bootstrap Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const store = new window.DataStore();
+      const themeEngine = new window.ThemeEngine();
+      const appRenderer = new window.AppRenderer(store, themeEngine);
+      const wizardController = new window.WizardController(store, themeEngine, appRenderer);
+
+      // Modal Close Handlers
+      document.querySelectorAll(".modal-close-btn, .modal-backdrop").forEach(el => {
+        el.addEventListener("click", () => {
+          document.querySelectorAll(".modal-container").forEach(m => m.classList.remove("open"));
+        });
+      });
+
+      // Default View Logic:
+      // If user came via a shared URL or profile exists, open surprise directly.
+      // User can click "Customize Surprise ✏️" anytime to edit!
+      wizardController.showView("surprise");
+    });
+  </script>
+</body>
+</html>
