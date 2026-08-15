@@ -46,7 +46,7 @@ const CONFIG = {
   backgroundMusic: {
     enabled: true,
     autoplay: false, // Default is OFF as requested
-    audioFilePath: "assets/music/romantic-bgm.mp3", // Path to your music file
+    audioFilePath: "assets/music/bgm.mp3", // Path to your music file
     buttonTitle: "Toggle Music"
   },
 

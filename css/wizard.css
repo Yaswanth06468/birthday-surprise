@@ -281,6 +281,15 @@
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+input[type="datetime-local"].form-control {
+  color-scheme: dark;
+}
+
+input[type="datetime-local"].form-control::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.9);
+}
+
 .form-control:focus {
   border-color: var(--accent-pink);
   box-shadow: 0 0 15px rgba(255, 101, 132, 0.3);
@@ -428,3 +437,171 @@ textarea.form-control {
   .step-label { display: none; }
   .wizard-title { font-size: 2.2rem; }
 }
+
+/* ===================================================================
+   MODERN SOCIAL SHARE MODAL & TOAST 🔗
+   =================================================================== */
+.share-modal-card {
+  max-width: 540px;
+  width: 90%;
+  padding: 2.2rem;
+  text-align: center;
+  border-radius: 24px;
+  background: rgba(20, 10, 30, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 101, 132, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 101, 132, 0.25);
+  position: relative;
+  margin: 0 auto;
+}
+
+.share-modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.share-modal-icon {
+  font-size: 2.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.share-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #ffffff 30%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.3rem;
+}
+
+.share-modal-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.share-url-box {
+  display: flex;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  padding: 0.5rem 0.6rem;
+  border-radius: 14px;
+  margin-bottom: 1.8rem;
+  align-items: center;
+}
+
+.share-url-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: monospace;
+  font-size: 0.88rem;
+  padding: 0.5rem;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.share-options-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9rem;
+}
+
+@media (max-width: 520px) {
+  .share-options-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.share-option-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.9rem 0.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.share-option-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  filter: brightness(1.1);
+}
+
+.share-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* Individual Platform Branding */
+.share-whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.share-telegram {
+  background: linear-gradient(135deg, #0088cc 0%, #006699 100%);
+}
+
+.share-facebook {
+  background: linear-gradient(135deg, #1877F2 0%, #0d52b1 100%);
+}
+
+.share-twitter {
+  background: linear-gradient(135deg, #1da1f2 0%, #0c7abf 100%);
+}
+
+.share-instagram {
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.share-snapchat {
+  background: linear-gradient(135deg, #FFFC00 0%, #e6e300 100%);
+  color: #000000 !important;
+}
+
+.share-native {
+  background: linear-gradient(135deg, #ffd166 0%, #f39c12 100%);
+  color: #1a0b2e !important;
+}
+
+.share-copylink {
+  background: linear-gradient(135deg, #ff6584 0%, #ff477e 100%);
+}
+
+/* Toast notification */
+.toast-notification {
+  position: fixed;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(20, 10, 30, 0.95);
+  border: 1px solid var(--accent-pink);
+  color: #fff;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(255, 101, 132, 0.45);
+  z-index: 100000;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.35s ease;
+}
+
+.toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+

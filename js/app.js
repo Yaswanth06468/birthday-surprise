@@ -102,6 +102,9 @@ class AppRenderer {
       return;
     }
 
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
     document.body.classList.add("locked");
     gate.style.display = "flex";
     gate.classList.remove("unlock-fade");
@@ -111,6 +114,8 @@ class AppRenderer {
       const target = (passConfig.secretPassword || "love").trim().toLowerCase();
 
       if (val === target) {
+        if (input) input.blur();
+        if (document.activeElement) document.activeElement.blur();
         errorMsg.textContent = passConfig.unlockSuccessMessage || "Welcome, my love! ❤️";
         errorMsg.className = "password-error-msg success";
         if (this.confetti) this.confetti.burst(50);
@@ -118,6 +123,19 @@ class AppRenderer {
         setTimeout(() => {
           gate.style.display = "none";
           document.body.classList.remove("locked");
+
+          // Ensure browser repaints layout after removing overflow:hidden before scrolling
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              window.scrollTo(0, 0);
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+              });
+            }, 50);
+          });
         }, 800);
       } else {
         errorMsg.textContent = passConfig.errorMessage || "Wrong 😜 Try again!";
@@ -648,8 +666,24 @@ class AppRenderer {
 
     if (!musicBtn) return;
 
-    if (audioEl && musicConfig.audioFilePath) {
-      audioEl.src = musicConfig.audioFilePath;
+    const defaultTrack = "assets/music/bgm.mp3";
+    const onlineCdnTrack = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3";
+    
+    let selectedTrack = musicConfig.audioFilePath || defaultTrack;
+    if (selectedTrack === "assets/music/romantic-bgm.mp3") {
+      selectedTrack = defaultTrack;
+    }
+
+    if (audioEl) {
+      audioEl.src = selectedTrack;
+
+      // Handle loading error (e.g. 404 on local asset) by automatically switching to the online CDN track
+      audioEl.onerror = () => {
+        if (audioEl.src !== onlineCdnTrack) {
+          console.log("[MusicPlayer] Local track not found, switching to online background track...");
+          audioEl.src = onlineCdnTrack;
+        }
+      };
     }
 
     let isPlaying = false;
@@ -661,9 +695,16 @@ class AppRenderer {
             isPlaying = true;
             musicBtn.classList.add("playing");
           }).catch(err => {
-            this.startSynthSound();
-            isPlaying = true;
-            musicBtn.classList.add("playing");
+            console.warn("[MusicPlayer] Error playing primary audio, retrying online track:", err);
+            audioEl.src = onlineCdnTrack;
+            audioEl.play().then(() => {
+              isPlaying = true;
+              musicBtn.classList.add("playing");
+            }).catch(() => {
+              this.startSynthSound();
+              isPlaying = true;
+              musicBtn.classList.add("playing");
+            });
           });
         } else {
           this.startSynthSound();

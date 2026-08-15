@@ -51,6 +51,7 @@ class WizardController {
     const btnPreview = document.getElementById("wiz-btn-preview");
     const btnReset = document.getElementById("wiz-btn-reset");
     const btnShare = document.getElementById("wiz-btn-share");
+    const btnFloatingShare = document.getElementById("btn-floating-share");
 
     if (btnPrev) btnPrev.addEventListener("click", () => this.changeStep(-1));
     if (btnNext) btnNext.addEventListener("click", () => this.changeStep(1));
@@ -58,6 +59,7 @@ class WizardController {
     if (btnPreview) btnPreview.addEventListener("click", () => this.openLivePreview());
     if (btnReset) btnReset.addEventListener("click", () => this.confirmReset());
     if (btnShare) btnShare.addEventListener("click", () => this.shareProfileLink());
+    if (btnFloatingShare) btnFloatingShare.addEventListener("click", () => this.shareProfileLink());
 
     // Step item indicator clicks
     document.querySelectorAll(".step-item").forEach(item => {
@@ -113,6 +115,7 @@ class WizardController {
         <div class="profile-actions">
           <button class="theme-btn btn-sm btn-open-prof" data-id="${prof.id}">Open ❤️</button>
           <button class="theme-btn btn-sm btn-outline btn-edit-prof" data-id="${prof.id}">Edit ✏️</button>
+          <button class="theme-btn btn-sm btn-outline btn-share-prof" data-id="${prof.id}">Share 🔗</button>
           ${profiles.length > 1 ? `<button class="btn-remove-item btn-del-prof" data-id="${prof.id}" title="Delete">✕</button>` : ''}
         </div>
       `;
@@ -124,6 +127,10 @@ class WizardController {
       card.querySelector(".btn-edit-prof").addEventListener("click", () => {
         this.store.setActiveProfileId(prof.id);
         this.openWizard(prof);
+      });
+      card.querySelector(".btn-share-prof").addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.shareProfileLink(prof);
       });
       const delBtn = card.querySelector(".btn-del-prof");
       if (delBtn) {
@@ -189,7 +196,11 @@ class WizardController {
     // Step 1 — Her Details
     this.setVal("wiz-her-name", p.herDetails.name);
     this.setVal("wiz-her-nickname", p.herDetails.nickname);
-    this.setVal("wiz-her-birthday", p.herDetails.birthdayDate);
+    let bday = p.herDetails.birthdayDate || "2026-08-15T00:00";
+    if (bday.includes("T") && bday.length > 16) {
+      bday = bday.substring(0, 16);
+    }
+    this.setVal("wiz-her-birthday", bday);
     this.setVal("wiz-her-color", p.herDetails.favoriteColor || "#ff6584");
     this.setVal("wiz-her-desc", p.herDetails.shortDescription);
     const photoPreview = document.getElementById("wiz-her-photo-preview");
@@ -609,7 +620,7 @@ class WizardController {
 
   saveAndOpenSurprise() {
     this.readFormValues();
-    alert("Surprise Saved Successfully! ❤️");
+    this.showToast("Surprise Saved Successfully! ❤️");
     this.showView("surprise");
   }
 
@@ -626,14 +637,144 @@ class WizardController {
     }
   }
 
-  shareProfileLink() {
-    this.readFormValues();
-    const shareUrl = this.store.exportShareableUrl(this.activeProfile);
-    navigator.clipboard.writeText(shareUrl).then(() => {
-      alert("Shareable link copied to clipboard! Anyone with this link can view your customized surprise ❤️:\n\n" + shareUrl);
-    }).catch(() => {
-      prompt("Copy your shareable link below:", shareUrl);
-    });
+  showToast(message) {
+    const toast = document.getElementById("toast-notification");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    if (this._toastTimer) clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3200);
+  }
+
+  async shareProfileLink(targetProfile = null) {
+    if (this.currentView === "wizard") {
+      this.readFormValues();
+    }
+
+    const profile = targetProfile || this.activeProfile || this.store.getActiveProfile();
+    const shareModal = document.getElementById("share-modal");
+    const shareInput = document.getElementById("share-url-input");
+    const copyBtn = document.getElementById("share-url-copy-btn");
+
+    if (!shareModal) return;
+
+    if (shareInput) shareInput.value = "Generating link... ⏳";
+    shareModal.classList.add("open");
+
+    const shareUrl = await this.store.exportShareableUrl(profile);
+    if (shareInput) shareInput.value = shareUrl;
+
+    const herName = (profile && profile.herDetails && profile.herDetails.name) || "My Love";
+    const shareMessage = `🎁 I created a special birthday surprise for ${herName}! ❤️ Open your surprise here: ${shareUrl}`;
+
+    // 1. URL Bar Copy Button
+    if (copyBtn) {
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          this.showToast("Shareable link copied to clipboard! ✨");
+        }).catch(() => {
+          this.showToast("Copied: " + shareUrl);
+        });
+      };
+    }
+
+    // 2. WhatsApp Share Button
+    const btnWhatsApp = document.getElementById("share-btn-whatsapp");
+    if (btnWhatsApp) {
+      btnWhatsApp.onclick = () => {
+        const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage)}`;
+        window.open(waUrl, "_blank");
+      };
+    }
+
+    // 3. Telegram Share Button
+    const btnTelegram = document.getElementById("share-btn-telegram");
+    if (btnTelegram) {
+      btnTelegram.onclick = () => {
+        const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`🎁 Birthday Surprise for ${herName}! ❤️`)}`;
+        window.open(tgUrl, "_blank");
+      };
+    }
+
+    // 4. Facebook Share Button
+    const btnFacebook = document.getElementById("share-btn-facebook");
+    if (btnFacebook) {
+      btnFacebook.onclick = () => {
+        const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        window.open(fbUrl, "_blank");
+      };
+    }
+
+    // 5. X / Twitter Share Button
+    const btnTwitter = document.getElementById("share-btn-twitter");
+    if (btnTwitter) {
+      btnTwitter.onclick = () => {
+        const twUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`🎁 I created a special birthday surprise for ${herName}! ❤️`)}`;
+        window.open(twUrl, "_blank");
+      };
+    }
+
+    // 6. Instagram Share
+    const btnInstagram = document.getElementById("share-btn-instagram");
+    if (btnInstagram) {
+      btnInstagram.onclick = () => {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          this.showToast("Link copied! 📋 Paste it into Instagram Direct or Bio ✨");
+        }).catch(() => {
+          this.showToast("Copied: " + shareUrl);
+        });
+        setTimeout(() => {
+          window.open("https://instagram.com", "_blank");
+        }, 600);
+      };
+    }
+
+    // 7. Snapchat Share
+    const btnSnapchat = document.getElementById("share-btn-snapchat");
+    if (btnSnapchat) {
+      btnSnapchat.onclick = () => {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          this.showToast("Link copied! 📋 Paste it in your Snapchat Chat or Story ✨");
+        }).catch(() => {
+          this.showToast("Copied: " + shareUrl);
+        });
+        setTimeout(() => {
+          window.open("https://snapchat.com", "_blank");
+        }, 600);
+      };
+    }
+
+    // 8. Native Share (Web Share API)
+    const btnNative = document.getElementById("share-btn-native");
+    if (btnNative) {
+      btnNative.onclick = () => {
+        if (navigator.share) {
+          navigator.share({
+            title: `${herName}'s Birthday Surprise ❤️`,
+            text: `I created a special birthday surprise for ${herName}! ✨`,
+            url: shareUrl
+          }).catch(err => console.log("Native share dismissed", err));
+        } else {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            this.showToast("Shareable link copied to clipboard! ✨");
+          });
+        }
+      };
+    }
+
+    // 9. Copy Link Button
+    const btnCopyLink = document.getElementById("share-btn-copylink");
+    if (btnCopyLink) {
+      btnCopyLink.onclick = () => {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          this.showToast("Shareable link copied to clipboard! ✨");
+        }).catch(() => {
+          this.showToast("Copied: " + shareUrl);
+        });
+      };
+    }
   }
 
   getVal(id) {

@@ -20,6 +20,7 @@
   <div class="floating-edit-bar">
     <button id="btn-open-wizard" class="floating-edit-btn">Customize Surprise ✏️</button>
     <button id="btn-open-dashboard" class="floating-edit-btn">My Surprises 📂</button>
+    <button id="btn-floating-share" class="floating-edit-btn">Share 🔗</button>
   </div>
 
   <!-- Canvases for Celebratory Effects -->
@@ -522,6 +523,72 @@
     </div>
   </div>
 
+  <!-- Modern Social Share Modal 🔗 -->
+  <div id="share-modal" class="modal-container">
+    <div class="modal-backdrop"></div>
+    <div class="glass-card modal-content share-modal-card">
+      <button class="modal-close-btn">&times;</button>
+      
+      <div class="share-modal-header">
+        <div class="share-modal-icon">🎁❤️</div>
+        <h2 class="share-modal-title">Share Birthday Surprise</h2>
+        <p class="share-modal-subtitle">Send this romantic surprise to your special someone!</p>
+      </div>
+
+      <!-- Generated Link Input Box -->
+      <div class="share-url-box">
+        <input type="text" id="share-url-input" class="share-url-input" readonly value="Generating link... ⏳" />
+        <button id="share-url-copy-btn" class="theme-btn btn-sm">Copy 📋</button>
+      </div>
+
+      <!-- Social Media Share Grid -->
+      <div class="share-options-grid">
+        <button class="share-option-btn share-whatsapp" id="share-btn-whatsapp">
+          <span class="share-icon">💬</span>
+          <span class="share-name">WhatsApp</span>
+        </button>
+
+        <button class="share-option-btn share-telegram" id="share-btn-telegram">
+          <span class="share-icon">✈️</span>
+          <span class="share-name">Telegram</span>
+        </button>
+
+        <button class="share-option-btn share-facebook" id="share-btn-facebook">
+          <span class="share-icon">📘</span>
+          <span class="share-name">Facebook</span>
+        </button>
+
+        <button class="share-option-btn share-twitter" id="share-btn-twitter">
+          <span class="share-icon">𝕏</span>
+          <span class="share-name">X (Twitter)</span>
+        </button>
+
+        <button class="share-option-btn share-instagram" id="share-btn-instagram">
+          <span class="share-icon">📸</span>
+          <span class="share-name">Instagram</span>
+        </button>
+
+        <button class="share-option-btn share-snapchat" id="share-btn-snapchat">
+          <span class="share-icon">👻</span>
+          <span class="share-name">Snapchat</span>
+        </button>
+
+        <button class="share-option-btn share-native" id="share-btn-native">
+          <span class="share-icon">📲</span>
+          <span class="share-name">Device Share</span>
+        </button>
+
+        <button class="share-option-btn share-copylink" id="share-btn-copylink">
+          <span class="share-icon">🔗</span>
+          <span class="share-name">Copy Link</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-notification" class="toast-notification">Link copied to clipboard! ✨</div>
+
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
@@ -536,7 +603,7 @@
 
   <!-- Application Bootstrap Script -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       const store = new window.DataStore();
       const themeEngine = new window.ThemeEngine();
       const appRenderer = new window.AppRenderer(store, themeEngine);
@@ -549,9 +616,15 @@
         });
       });
 
+      // Check for short slug or share URL in current window location
+      const urlStatus = await store.checkUrlImport();
+      if (urlStatus === false) {
+        document.getElementById("surprise-not-found-modal").classList.add("open");
+        return;
+      }
+
       // Default View Logic:
-      // If user came via a shared URL or profile exists, open surprise directly.
-      // User can click "Customize Surprise ✏️" anytime to edit!
+      // Open surprise directly with active profile data!
       wizardController.showView("surprise");
     });
   </script>
