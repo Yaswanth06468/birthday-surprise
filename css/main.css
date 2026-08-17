@@ -236,7 +236,7 @@ body.locked {
 }
 
 .password-input-group {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
 }
 
 .password-input {
@@ -256,6 +256,63 @@ body.locked {
 .password-input:focus {
   border-color: var(--accent-pink);
   box-shadow: 0 0 20px rgba(255, 101, 132, 0.4);
+}
+
+.password-hint-btn {
+  background: none;
+  border: none;
+  color: var(--accent-pink, #ff6584);
+  font-family: var(--font-body, inherit);
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.35rem 0.9rem;
+  margin-bottom: 1.2rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  opacity: 0.9;
+}
+
+.password-hint-btn:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  background: rgba(255, 101, 132, 0.12);
+  box-shadow: 0 0 12px rgba(255, 101, 132, 0.25);
+}
+
+.password-hint-box {
+  display: none;
+  margin: -0.4rem auto 1.3rem auto;
+  padding: 0.75rem 1.2rem;
+  background: rgba(255, 101, 132, 0.12);
+  border: 1px solid rgba(255, 101, 132, 0.3);
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: hintSlideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.password-hint-box.show {
+  display: block;
+}
+
+@keyframes hintSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .password-error-msg {

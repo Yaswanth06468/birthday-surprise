@@ -105,7 +105,7 @@ class WizardController {
     profiles.forEach(prof => {
       const card = document.createElement("div");
       card.className = `profile-card ${prof.id === activeId ? "active" : ""}`;
-      const photo = (prof.herDetails && prof.herDetails.profilePhoto) || "assets/images/photo1.svg";
+      const photo = (prof.herDetails && prof.herDetails.profilePhoto) || "/assets/images/photo1.svg";
       const name = (prof.herDetails && prof.herDetails.name) || "Surprise";
 
       card.innerHTML = `
@@ -236,7 +236,7 @@ class WizardController {
 
     const passEnabled = document.getElementById("wiz-pass-enabled");
     if (passEnabled) passEnabled.checked = p.passwordProtection ? p.passwordProtection.enabled : true;
-    this.setVal("wiz-pass-secret", p.passwordProtection ? p.passwordProtection.secretPassword : "love");
+    this.setVal("wiz-pass-secret", p.passwordProtection && p.passwordProtection.secretPassword !== "love" ? p.passwordProtection.secretPassword : "Siya");
 
     // Step 6 — Theme
     this.selectThemePreset(p.theme ? p.theme.preset : "romantic");
@@ -274,7 +274,7 @@ class WizardController {
     if (!p.passwordProtection) p.passwordProtection = {};
     const passEnabled = document.getElementById("wiz-pass-enabled");
     p.passwordProtection.enabled = passEnabled ? passEnabled.checked : true;
-    p.passwordProtection.secretPassword = this.getVal("wiz-pass-secret") || "love";
+    p.passwordProtection.secretPassword = this.getVal("wiz-pass-secret") || "Siya";
 
     this.store.saveActiveProfile(p);
   }
@@ -405,7 +405,7 @@ class WizardController {
           title: "New Memory",
           caption: "A special moment together ❤️",
           date: new Date().toLocaleDateString(),
-          image: "assets/images/photo1.svg",
+          image: "/assets/images/photo1.svg",
           rotation: (Math.random() * 6 - 3) + "deg"
         });
         this.renderMemoriesList();

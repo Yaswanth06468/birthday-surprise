@@ -20,11 +20,11 @@ const CONFIG = {
   // ==================================================================
   passwordProtection: {
     enabled: true, // Set to 'false' if you want to disable the password gate
-    secretPassword: "love", // The secret word she needs to enter (case-insensitive)
+    secretPassword: "Siya", // The secret word she needs to enter (case-insensitive)
     titleText: "Before you enter... prove it's you 😉",
     placeholderText: "Enter the secret word ❤️",
     unlockButtonText: "Unlock My Heart 🔑",
-    errorMessage: "Wrong 😜 Try again, birthday girl!",
+    errorMessage: "Hmm... that's not it 😅 Try again!",
     unlockSuccessMessage: "Welcome, my love! ❤️"
   },
 
@@ -46,7 +46,7 @@ const CONFIG = {
   backgroundMusic: {
     enabled: true,
     autoplay: false, // Default is OFF as requested
-    audioFilePath: "assets/music/bgm.mp3", // Path to your music file
+    audioFilePath: "/assets/music/bgm.mp3", // Path to your music file
     buttonTitle: "Toggle Music"
   },
 
@@ -128,42 +128,42 @@ const CONFIG = {
       title: "The Beginning",
       date: "Oct 12, 2023",
       caption: "The day my life changed forever ✨",
-      image: "assets/images/photo1.svg", // Replace with your photo path (e.g. assets/images/photo1.jpg)
+      image: "/assets/images/photo1.svg", // Replace with your photo path (e.g. assets/images/photo1.jpg)
       rotation: "-3deg"
     },
     {
       title: "Sunset Magic",
       date: "Dec 24, 2023",
       caption: "Golden hour with my golden girl 🌅",
-      image: "assets/images/photo2.svg",
+      image: "/assets/images/photo2.svg",
       rotation: "2deg"
     },
     {
       title: "Cozy Coffee Date",
       date: "Feb 14, 2024",
       caption: "Warm cups & endless sweet smiles ☕❤️",
-      image: "assets/images/photo3.svg",
+      image: "/assets/images/photo3.svg",
       rotation: "-2deg"
     },
     {
       title: "Weekend Getaway",
       date: "May 20, 2024",
       caption: "Exploring new roads together 🚗💨",
-      image: "assets/images/photo4.svg",
+      image: "/assets/images/photo4.svg",
       rotation: "4deg"
     },
     {
       title: "Unforgettable Laughs",
       date: "Jul 04, 2024",
       caption: "Laughed until our cheeks hurt! 😂",
-      image: "assets/images/photo5.svg",
+      image: "/assets/images/photo5.svg",
       rotation: "-4deg"
     },
     {
       title: "Under The Stars",
       date: "Sep 18, 2024",
       caption: "Under the stars with my whole universe ✨",
-      image: "assets/images/photo6.svg",
+      image: "/assets/images/photo6.svg",
       rotation: "3deg"
     }
   ],

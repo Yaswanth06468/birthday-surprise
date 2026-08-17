@@ -92,6 +92,8 @@ class AppRenderer {
     const input = document.getElementById("password-input");
     const btn = document.getElementById("password-submit-btn");
     const errorMsg = document.getElementById("password-error-msg");
+    const hintBtn = document.getElementById("password-hint-btn");
+    const hintBox = document.getElementById("password-hint-box");
     const passConfig = profile.passwordProtection || { enabled: false };
 
     if (!gate) return;
@@ -109,9 +111,24 @@ class AppRenderer {
     gate.style.display = "flex";
     gate.classList.remove("unlock-fade");
 
+    if (errorMsg) {
+      errorMsg.textContent = "";
+      errorMsg.className = "password-error-msg";
+    }
+
+    if (hintBox) {
+      hintBox.classList.remove("show");
+    }
+
+    if (hintBtn && hintBox) {
+      hintBtn.onclick = () => {
+        hintBox.classList.toggle("show");
+      };
+    }
+
     const checkPassword = () => {
       const val = (input.value || "").trim().toLowerCase();
-      const target = (passConfig.secretPassword || "love").trim().toLowerCase();
+      const target = (passConfig.secretPassword && passConfig.secretPassword !== "love" ? passConfig.secretPassword : "Siya").trim().toLowerCase();
 
       if (val === target) {
         if (input) input.blur();
@@ -138,7 +155,7 @@ class AppRenderer {
           });
         }, 800);
       } else {
-        errorMsg.textContent = passConfig.errorMessage || "Wrong 😜 Try again!";
+        errorMsg.textContent = "Hmm... that's not it 😅 Try again!";
         errorMsg.className = "password-error-msg error";
         const card = document.querySelector(".password-card");
         if (card) {
@@ -666,11 +683,11 @@ class AppRenderer {
 
     if (!musicBtn) return;
 
-    const defaultTrack = "assets/music/bgm.mp3";
+    const defaultTrack = "/assets/music/bgm.mp3";
     const onlineCdnTrack = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3";
     
     let selectedTrack = musicConfig.audioFilePath || defaultTrack;
-    if (selectedTrack === "assets/music/romantic-bgm.mp3") {
+    if (selectedTrack === "assets/music/romantic-bgm.mp3" || selectedTrack === "/assets/music/romantic-bgm.mp3" || selectedTrack === "assets/music/bgm.mp3") {
       selectedTrack = defaultTrack;
     }
 

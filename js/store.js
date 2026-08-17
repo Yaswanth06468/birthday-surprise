@@ -17,7 +17,7 @@ const DEFAULT_PROFILE = {
     name: "Sophia",
     nickname: "Soph",
     birthdayDate: "2026-08-15T00:00",
-    profilePhoto: "assets/images/photo1.svg",
+    profilePhoto: "/assets/images/photo1.svg",
     favoriteColor: "#ff6584",
     shortDescription: "The most radiant, beautiful, and kind-hearted soul in the universe."
   },
@@ -54,7 +54,7 @@ const DEFAULT_PROFILE = {
       title: "The Beginning",
       date: "Oct 12, 2023",
       caption: "The day my life changed forever ✨",
-      image: "assets/images/photo1.svg",
+      image: "/assets/images/photo1.svg",
       rotation: "-3deg"
     },
     {
@@ -62,7 +62,7 @@ const DEFAULT_PROFILE = {
       title: "Sunset Magic",
       date: "Dec 24, 2023",
       caption: "Golden hour with my golden girl 🌅",
-      image: "assets/images/photo2.svg",
+      image: "/assets/images/photo2.svg",
       rotation: "2deg"
     },
     {
@@ -70,7 +70,7 @@ const DEFAULT_PROFILE = {
       title: "Cozy Coffee Date",
       date: "Feb 14, 2024",
       caption: "Warm cups & endless sweet smiles ☕❤️",
-      image: "assets/images/photo3.svg",
+      image: "/assets/images/photo3.svg",
       rotation: "-2deg"
     },
     {
@@ -78,7 +78,7 @@ const DEFAULT_PROFILE = {
       title: "Weekend Getaway",
       date: "May 20, 2024",
       caption: "Exploring new roads together 🚗💨",
-      image: "assets/images/photo4.svg",
+      image: "/assets/images/photo4.svg",
       rotation: "4deg"
     }
   ],
@@ -89,7 +89,7 @@ const DEFAULT_PROFILE = {
       date: "Oct 12, 2023",
       title: "The First Spark ✨",
       description: "We met at the cozy coffee shop and couldn't stop talking.",
-      photo: "assets/images/photo1.svg"
+      photo: "/assets/images/photo1.svg"
     },
     {
       id: "tl-2",
@@ -195,17 +195,17 @@ const DEFAULT_PROFILE = {
 
   music: {
     enabled: true,
-    audioFilePath: "assets/music/bgm.mp3",
+    audioFilePath: "/assets/music/bgm.mp3",
     title: "Toggle Music"
   },
 
   passwordProtection: {
     enabled: true,
-    secretPassword: "love",
+    secretPassword: "Siya",
     titleText: "Before you enter... prove it's you 😉",
     placeholderText: "Enter the secret word ❤️",
     unlockButtonText: "Unlock My Heart 🔑",
-    errorMessage: "Wrong 😜 Try again, birthday girl!",
+    errorMessage: "Hmm... that's not it 😅 Try again!",
     unlockSuccessMessage: "Welcome, my love! ❤️"
   }
 };
@@ -443,7 +443,7 @@ resetCurrentProfile() {
           name: surprise.girlfriend_name || "My Love",
           nickname: surprise.nickname || "",
           birthdayDate: surprise.birthday || "2026-08-15T00:00",
-          profilePhoto: surprise.profile_photo_url || "assets/images/photo1.svg",
+          profilePhoto: surprise.profile_photo_url || "/assets/images/photo1.svg",
           favoriteColor: surprise.favorite_color || "#ff6584",
           shortDescription: surprise.short_description || ""
         },
@@ -474,7 +474,7 @@ resetCurrentProfile() {
               title: m.title || "",
               caption: m.caption || "",
               date: m.date || "",
-              image: m.image_url || "assets/images/photo1.svg",
+              image: m.image_url || "/assets/images/photo1.svg",
               rotation: m.rotation || (Math.random() * 6 - 3) + "deg"
             }))
           : [],
@@ -526,17 +526,17 @@ resetCurrentProfile() {
 
         music: {
           enabled: true,
-          audioFilePath: surprise.music_url || "assets/music/bgm.mp3",
+          audioFilePath: surprise.music_url || "/assets/music/bgm.mp3",
           title: "Toggle Music"
         },
 
         passwordProtection: {
           enabled: true,
-          secretPassword: "love",
+          secretPassword: "Siya",
           titleText: "Before you enter... prove it's you 😉",
           placeholderText: "Enter the secret word ❤️",
           unlockButtonText: "Unlock My Heart 🔑",
-          errorMessage: "Wrong 😜 Try again, birthday girl!",
+          errorMessage: "Hmm... that's not it 😅 Try again!",
           unlockSuccessMessage: "Welcome, my love! ❤️"
         }
       };
